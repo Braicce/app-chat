@@ -11,11 +11,18 @@ function enterChat() {
     document.getElementById("nickname-section").style.display = "none";
     document.getElementById("chat-section").style.display = "flex";
 
+    // Cria o WebSocket com o URL correto
     ws = new WebSocket(`ws://${window.location.host}/ws/chat?username=${username}`);
 
+    // Definir o manipulador de evento para o WebSocket
     ws.onmessage = (event) => {
         const data = JSON.parse(event.data);
         addMessageToChat(data.sender, data.message);
+
+        // Toca o som de notificação quando uma mensagem é recebida
+        if (data.sender !== username) {
+            playNotificationSound();  // Toca o som de notificação
+        }
     };
 }
 
@@ -49,4 +56,10 @@ function addMessageToChat(sender, message) {
 
     // Scroll automático para a última mensagem
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Função para tocar o som
+function playNotificationSound() {
+    const audio = new Audio('/static/notification.mp3');  // Caminho para o arquivo MP3
+    audio.play();
 }

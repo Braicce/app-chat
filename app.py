@@ -31,17 +31,13 @@ manager = ConnectionManager()
 async def websocket_chat(websocket: WebSocket, username: str):
     await manager.connect(websocket)
     try:
-        # Enviar mensagem de "entrou no chat" sem o prefixo "Sistema:"
+        # Enviar mensagem de boas-vindas sem mostrar "Sistema"
         await manager.broadcast({"sender": "Chat", "message": f"{username} entrou no chat"})
-        
         while True:
             data = await websocket.receive_text()
-            # Enviar mensagem normal com o nome do usuário
             await manager.broadcast({"sender": username, "message": data})
-
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        # Enviar mensagem de "saiu do chat" sem o prefixo "Sistema:"
         await manager.broadcast({"sender": "Chat", "message": f"{username} saiu do chat"})
         
 from fastapi.responses import FileResponse
