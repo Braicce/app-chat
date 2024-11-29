@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    container_name: web
+    ports:
+      - "8000:8000"  # Mapeia a porta do container para a máquina host
+    volumes:
+      - .:/app  # Para que as alterações no código sejam refletidas automaticamente
+    environment:
+      - PYTHONUNBUFFERED=1  # Para não bufferizar os logs
+    networks:
+      - rede_interna
+
+networks:
+  rede_interna:
+    driver: bridge
