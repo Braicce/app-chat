@@ -1,0 +1,134 @@
+/* Estilo geral */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Layout da tela de login */
+#nickname-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+    flex-direction: column;
+}
+
+#nickname-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+#nickname-input {
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+#nickname-input:focus {
+    outline: none;
+    border-color: #128C7E;
+}
+
+button {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #128C7E;
+}
+
+/* Layout da tela do chat */
+#chat-section {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #fff;
+    padding: 10px;
+}
+
+#messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #e5ddd5;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.message {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.received {
+    background-color: #dcf8c6;
+    align-self: flex-start;
+}
+
+.sent {
+    background-color: #25D366;
+    color: white;
+    align-self: flex-end;
+}
+
+#message-input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: 80%;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#message-input:focus {
+    outline: none;
+    border-color: #128C7E;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Notificação visual */
+.notification {
+    background-color: #25D366;
+    color: white;
+    padding: 10px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    display: none;
+    animation: slideIn 3s ease-out;
+}
+
+@keyframes slideIn {
+    0% {
+        top: -50px;
+        opacity: 0;
+    }
+    100% {
+        top: 20px;
+        opacity: 1;
+    }
+}

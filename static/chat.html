@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat WebSocket</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        let ws;
+        let nickname;
+
+        // Função para conectar ao chat
+        function connectToChat() {
+            nickname = document.getElementById('nickname-input').value;
+            if (nickname) {
+                document.getElementById('nickname-section').style.display = 'none';
+                document.getElementById('chat-section').style.display = 'block';
+
+                // Conectar ao WebSocket
+                ws = new WebSocket('ws://' + window.location.host + '/ws/chat/lobby');
+
+                ws.onopen = () => {
+                    console.log("Conectado ao WebSocket");
+                    showNotification(`${nickname} entrou no chat!`);
+                };
+
+                ws.onmessage = (event) => {
+                    let data = JSON.parse(event.data);  // Parsea a resposta corretamente
+                    let messageElement = document.createElement('div');
+                    messageElement.classList.add('message', 'received');
+                    messageElement.innerHTML = `<strong>${data.nickname}:</strong> ${data.message}`;
+                    document.getElementById('messages').appendChild(messageElement);
+                    playNotificationSound();  // Toca o som da notificação
+                };
+
+                ws.onclose = () => {
+                    console.log("Desconectado do WebSocket");
+                };
+            } else {
+                alert("Por favor, digite um nickname!");
+            }
+        }
+
+        // Função para enviar a mensagem
+        function sendMessage() {
+            let input = document.getElementById('message-input');
+            let message = input.value;
+            if (message) {
+                let messageElement = document.createElement('div');
+                messageElement.classList.add('message', 'sent');
+                messageElement.innerHTML = `<strong>${nickname}:</strong> ${message}`;
+                document.getElementById('messages').appendChild(messageElement);
+                input.value = '';
+
+                // Envia a mensagem com o nickname e a mensagem
+                let messageData = JSON.stringify({
+                    nickname: nickname,
+                    message: message
+                });
+                ws.send(messageData);  // Envia os dados corretamente
+            }
+        }
+
+        // Função para mostrar a notificação quando alguém entra no chat
+        function showNotification(message) {
+            let notification = document.createElement('div');
+            notification.classList.add('notification');
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+                document.body.removeChild(notification);
+            }, 3000);
+        }
+
+        // Função para tocar o som de notificação
+        function playNotificationSound() {
+            let audio = new Audio('/static/notification.mp3');
+            audio.play();
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Seção para digitar o Nickname -->
+    <div id="nickname-section" style="display: block;">
+        <h2>Digite seu Nickname</h2>
+        <input type="text" id="nickname-input" placeholder="Digite seu Nickname" />
+        <button onclick="connectToChat()">Entrar no chat</button>
+    </div>
+
+    <!-- Seção do Chat -->
+    <div id="chat-section" style="display: none;">
+        <div id="messages" style="overflow-y: auto; height: 300px; border: 1px solid #ccc; padding: 10px;">
+            <!-- Mensagens aparecerão aqui -->
+        </div>
+        <input type="text" id="message-input" placeholder="Digite uma mensagem" />
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+
+</body>
+</html>
