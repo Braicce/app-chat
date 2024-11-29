@@ -1,42 +1,47 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 from typing import List
-import json
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-# Lista para armazenar todos os websockets conectados
-active_connections: List[WebSocket] = []
-
-# Serve arquivos estáticos (CSS, JS)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Rota para retornar o chat.html
 @app.get("/")
-async def get():
-    return HTMLResponse(content=open("static/chat.html").read(), status_code=200)
+def read_root():
+    return FileResponse("static/chat.html")
 
-# WebSocket para o chat
-@app.websocket("/ws/chat/lobby")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    active_connections.append(websocket)
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: List[WebSocket] = []
+
+    async def connect(self, websocket: WebSocket):
+        await websocket.accept()
+        self.active_connections.append(websocket)
+
+    def disconnect(self, websocket: WebSocket):
+        self.active_connections.remove(websocket)
+
+    async def broadcast(self, message: dict):
+        for connection in self.active_connections:
+            await connection.send_json(message)
+
+manager = ConnectionManager()
+
+@app.websocket("/ws/chat")
+async def websocket_chat(websocket: WebSocket, username: str):
+    await manager.connect(websocket)
     try:
+        # Enviar mensagem de "entrou no chat" sem o prefixo "Sistema:"
+        await manager.broadcast({"sender": "Chat", "message": f"{username} entrou no chat"})
+        
         while True:
             data = await websocket.receive_text()
-            message_data = json.loads(data)  # Convertendo a mensagem recebida
-            nickname = message_data.get("nickname", "Desconhecido")
-            message = message_data.get("message", "")
+            # Enviar mensagem normal com o nome do usuário
+            await manager.broadcast({"sender": username, "message": data})
 
-            # Enviar a mensagem para todos os usuários conectados
-            for connection in active_connections:
-                if connection != websocket:
-                    # Envia a mensagem com nickname e o texto
-                    await connection.send_text(json.dumps({
-                        "nickname": nickname,
-                        "message": message
-                    }))
     except WebSocketDisconnect:
-        active_connections.remove(websocket)
-        await websocket.close()
+        manager.disconnect(websocket)
+        # Enviar mensagem de "saiu do chat" sem o prefixo "Sistema:"
+        await manager.broadcast({"sender": "Chat", "message": f"{username} saiu do chat"})
+        
+from fastapi.responses import FileResponse

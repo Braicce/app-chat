@@ -13,8 +13,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #fff;
+    background-color: #f5f5dc; /* Cor bege inspirada no WhatsApp */
     flex-direction: column;
+    text-align: center;
 }
 
 #nickname-section h2 {
@@ -55,7 +56,7 @@ button:hover {
 
 /* Layout da tela do chat */
 #chat-section {
-    display: flex;
+    display: none;
     flex-direction: column;
     height: 100vh;
     background-color: #fff;
@@ -90,12 +91,17 @@ button:hover {
     align-self: flex-end;
 }
 
+#input-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 #message-input {
+    flex-grow: 1;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    width: 80%;
-    margin-bottom: 10px;
     font-size: 16px;
 }
 
@@ -104,31 +110,30 @@ button:hover {
     border-color: #128C7E;
 }
 
-button:focus {
+#send-button {
+    background-color: #25D366;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+#send-button:hover {
+    background-color: #128C7E;
+}
+
+#send-button:focus {
     outline: none;
 }
 
-/* Notificação visual */
-.notification {
-    background-color: #25D366;
-    color: white;
-    padding: 10px;
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 5px;
-    display: none;
-    animation: slideIn 3s ease-out;
-}
-
-@keyframes slideIn {
-    0% {
-        top: -50px;
-        opacity: 0;
-    }
-    100% {
-        top: 20px;
-        opacity: 1;
-    }
+#send-button svg {
+    width: 20px;
+    height: 20px;
 }
