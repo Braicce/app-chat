@@ -2,8 +2,9 @@
 
 ## Implantação com Docker Compose
 
-$docker compose build 
-$docker compose up -d
+docker compose build 
+
+docker compose up -d
 
 ### Estrutura de arquivos
 
