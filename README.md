@@ -1,4 +1,4 @@
-## Chat simples em Python
+## "Zipo Chat"
 
 ## Implantação com Docker Compose
 
@@ -14,6 +14,9 @@ app-chat/
 │   ├── notification.mp3
 │   ├── style.css
 │   ├── script.js
+│   ├── background.webp
+│   ├── chat-logo.png
+│   ├── favicon.ico
 ├── app.py
 ├── dockerfile
 ├── docker-compose.yml
