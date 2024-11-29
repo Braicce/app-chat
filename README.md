@@ -13,6 +13,7 @@ app-chat/
 │   ├── chat.html
 │   ├── notification.mp3
 │   ├── style.css
+│   ├── script.js
 ├── app.py
 ├── dockerfile
 ├── docker-compose.yml
