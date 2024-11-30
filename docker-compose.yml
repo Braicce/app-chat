@@ -8,8 +8,24 @@ services:
       - .:/app  # Para que as alterações no código sejam refletidas automaticamente
     environment:
       - PYTHONUNBUFFERED=1  # Para não bufferizar os logs
+      - MONGO_URI=mongodb://mongodb:27017/chat_app
+    depends_on:
+      - mongodb
     networks:
       - rede_interna
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - rede_interna
+
+volumes:
+  mongodb_data:
 
 networks:
   rede_interna:

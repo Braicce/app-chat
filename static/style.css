@@ -59,7 +59,8 @@ button:hover {
     display: none; /* A tela de chat começa oculta */
     flex-direction: column;
     height: 100vh;
-    background-image: url('/static/background.webp');
+    background-color: #cdd7d8;
+    /*background-image: url('/static/background.webp');*/
     background-size: cover;
     padding: 10px;
 }
@@ -76,9 +77,9 @@ button:hover {
     overflow-y: auto;
     margin-bottom: 10px;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo semitransparente para melhorar a visibilidade do texto */
+    background-color: rgba(245, 246, 228,0.9); /* Fundo semitransparente para melhorar a visibilidade do texto */
     border-radius: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
 }
 
 .message {
