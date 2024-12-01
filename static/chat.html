@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
@@ -7,6 +8,7 @@
     <title>Zipo Chat</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
     <div id="nickname-section">
         <img src="/static/chat-logo.png" id="chat-logo" alt="Logo Chat">
@@ -14,21 +16,33 @@
         <input type="text" id="nickname-input" placeholder="Digite seu nome">
         <button onclick="enterChat()">Entrar</button>
     </div>
-
     <div id="chat-section">
-        <div id="messages"></div>
+        <div id="messages" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;"></div>
+        <div style="position: relative; display: flex; align-items: center; margin-top: 10px;">
         <div id="input-section">
             <input id="message-input" type="text" placeholder="Digite sua mensagem">
+            <button onclick="openEmojiPicker()">😀</button>
+            <div id="emoji-picker" style="display: none; position: absolute; background: white; border: 1px solid #ccc; padding: 10px; max-width: 300px; max-height: 200px; overflow-y: auto; bottom: 50px;"></div>
             <button id="send-button" onclick="sendMessage()">
                 <!-- Ícone de enviar -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 2L11 13" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 2L15 22L11 13L2 9L22 2Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M22 2L15 22L11 13L2 9L22 2Z" />
                 </svg>
             </button>
         </div>
+        <div id="emoji-picker"
+            style="display: none; position: absolute; background: white; border: 1px solid #ccc; padding: 10px; max-width: 300px; max-height: 200px; overflow-y: auto;">
+        </div>
     </div>
-
     <script src="/static/script.js"></script>
+    <!-- CSS do JoyPixels -->
+     <script src="https://cdn.jsdelivr.net/npm/emoji-toolkit@8.0.0/lib/js/joypixels.min.js"></script>
+    <!-- JS do JoyPixels -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-toolkit@8.0.0/extras/css/joypixels.min.css"/>
+
 </body>
+
 </html>

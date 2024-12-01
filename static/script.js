@@ -33,7 +33,7 @@ function enterChat() {
 
     // Adiciona o ouvinte para o ENTER
     const messageInput = document.getElementById("message-input");
-    messageInput.addEventListener("keypress", function(event) {
+    messageInput.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();  // Evita o comportamento padrão (quebra de linha)
             sendMessage();           // Chama a função para enviar a mensagem
@@ -56,6 +56,11 @@ function addMessageToChat(sender, message) {
     const messagesContainer = document.getElementById("messages");
     const messageElement = document.createElement("div");
 
+    // Substituir os códigos de emoticons pelo HTML correspondente
+    const messageWithEmojis = joypixels.toImage(message);
+
+    // Substitui os emoticons antes de exibir a mensagem
+
     messageElement.classList.add("message");
     if (sender === "Você") {
         messageElement.classList.add("sent");
@@ -66,7 +71,11 @@ function addMessageToChat(sender, message) {
         messageElement.classList.add("received");
     }
 
-    messageElement.innerText = `${sender}: ${message}`;
+    // Use o joypixels.toImage para converter os shortnames em emojis
+    message = joypixels.toImage(message);  // Converte o texto para emojis
+
+    // Inserir a mensagem renderizada com os emoticons
+    messageElement.innerHTML = `<strong>${sender}:</strong> ${messageWithEmojis}`;
     messagesContainer.appendChild(messageElement);
 
     // Scroll automático para a última mensagem
@@ -89,4 +98,43 @@ function addSystemMessageToChat(message) {
 function playNotificationSound() {
     const audio = new Audio('/static/notification.mp3');  // Caminho para o arquivo MP3
     audio.play();
+}
+
+// Função para abrir a lista de emojis
+function openEmojiPicker() {
+    const emojiPicker = document.getElementById("emoji-picker");
+    if (!emojiPicker) {
+        console.error("Emoji picker element not found.");
+        return;
+    }
+    if (emojiPicker.innerHTML === "") {
+        loadEmojis(); // Carregar os emojis apenas uma vez
+    }
+    emojiPicker.style.display = emojiPicker.style.display === "block" ? "none" : "block";
+}
+
+// Função para carregar emojis locais usando JoyPixels
+function loadEmojis() {
+    const emojiPicker = document.getElementById("emoji-picker");
+    const emojiShortnames = [
+        ':smile:', ':heart:', ':thumbsup:', ':laughing:', ':sob:', ':star:', ':wink:', ':grin:'
+    ]; // Lista de shortnames de emojis
+
+    emojiPicker.innerHTML = ""; // Limpa o conteúdo antes de recarregar
+    emojiShortnames.forEach((shortname) => {
+        const imgHTML = joypixels.shortnameToImage(shortname); // Gera o HTML da imagem
+        const imgElement = document.createElement('span');
+        imgElement.innerHTML = imgHTML;
+        imgElement.style.cursor = "pointer";
+        imgElement.style.margin = "5px";
+        imgElement.onclick = () => addEmojiToMessage(shortname); // Adiciona o shortname ao clicar
+        emojiPicker.appendChild(imgElement);
+    });
+}
+
+// Adicionar emoji ao campo de texto
+function addEmojiToMessage(emoji) {
+    const messageInput = document.getElementById("message-input");
+    messageInput.value += ` ${emoji}`;
+    document.getElementById("emoji-picker").style.display = "none";
 }

@@ -79,7 +79,7 @@ button:hover {
     padding: 10px;
     background-color: rgba(245, 246, 228,0.9); /* Fundo semitransparente para melhorar a visibilidade do texto */
     border-radius: 10px;
-    border: 1px solid #000000;
+    border: 1px solid #ffffff;
 }
 
 .message {
@@ -145,4 +145,27 @@ button:hover {
 #send-button svg {
     width: 20px;
     height: 20px;
+}
+
+#openEmoji-Picker {
+    position: absolute;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    z-index: 1000;
+}
+
+#openEmoji-Picker img {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#openEmoji-Picker img:hover {
+    transform: scale(1.2);
 }
