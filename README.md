@@ -4,9 +4,13 @@
 
 ## Implantação com Docker Compose
 
-docker compose build 
+#docker compose build 
 
-docker compose up -d
+#docker compose up -d
+
+### Banco de Dados 
+
+MongoDB - https://www.mongodb.com
 
 ### Estrutura de arquivos
 
