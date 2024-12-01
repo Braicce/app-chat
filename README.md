@@ -1,5 +1,7 @@
 ## "Zipo Chat"
 
+![chat-logo](https://github.com/user-attachments/assets/9a6003a0-50ec-4458-ba53-1dc4cef94b2c)
+
 ## Implantação com Docker Compose
 
 docker compose build 
