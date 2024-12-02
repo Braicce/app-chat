@@ -53,7 +53,7 @@ Esse projeto foi criado com a intenção de estudos em Python
 
 ## 📄 Licença
 
-Este projeto está sob a minha licença de uso comercial.
+Este projeto é para estudo e não pode ser distribuido de forma comercial sem minha autorização.
 
 ## 🎁 Expressões de gratidão
 
