@@ -3,3 +3,5 @@ uvicorn
 websockets
 passlib
 pymongo
+motor
+pydantic==1.10.2
