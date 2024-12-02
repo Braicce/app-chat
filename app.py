@@ -4,13 +4,16 @@ from fastapi.staticfiles import StaticFiles
 from pymongo import MongoClient
 from datetime import datetime
 from typing import List
-
-# Configurar a conexão com o MongoDB
-client = MongoClient('mongodb://mongodb:27017/')  # Ajuste o URI conforme necessário
-db = client['chat_app']  # Nome do banco de dados
-messages_collection = db['messages']  # Nome da coleção
+from db.create_collections import criarCollections
+from db.init_db import init_db
+from db.config import settings
 
 app = FastAPI()
+
+@app.on_event("startup")
+async def startup_event():
+    await criarCollections()
+    await init_db()
 
 # Servir arquivos estáticos
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -37,6 +40,11 @@ class ConnectionManager:
             await connection.send_json(message)
 
 manager = ConnectionManager()
+
+# Configurar a conexão com o MongoDB
+client = MongoClient(settings.mongodb_url)  # Criar uma instância do MongoClient
+db = client[settings.MONGODB_DB]  # Selecionar o banco de dados
+messages_collection = db['messages']  # Selecionar a coleção
 
 # WebSocket para o chat
 @app.websocket("/ws/chat")

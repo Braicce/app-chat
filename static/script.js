@@ -135,6 +135,6 @@ function loadEmojis() {
 // Adicionar emoji ao campo de texto
 function addEmojiToMessage(emoji) {
     const messageInput = document.getElementById("message-input");
-    messageInput.value += ` ${emoji}`;
+    messageInput.value += `${emoji}`;
     document.getElementById("emoji-picker").style.display = "none";
 }
