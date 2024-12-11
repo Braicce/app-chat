@@ -1,5 +1,5 @@
-from db.config import settings
-from db.database import CLIENT
+from app.db.config import settings
+from app.db.database import CLIENT
 import random
 
 database = CLIENT[settings.MONGODB_DB]

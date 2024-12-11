@@ -1,5 +1,5 @@
 import os
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     MONGODB_USER: str = os.getenv("MONGODB_USER", "admin") #Inserir o seu usuário de banco
