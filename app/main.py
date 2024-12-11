@@ -4,9 +4,9 @@ from fastapi.staticfiles import StaticFiles
 from pymongo import MongoClient
 from datetime import datetime
 from typing import List
-from db.create_collections import criarCollections
-from db.init_db import init_db
-from db.config import settings
+from app.db.create_collections import criarCollections
+from app.db.init_db import init_db
+from app.db.config import settings
 
 app = FastAPI()
 
@@ -16,12 +16,12 @@ async def startup_event():
     await init_db()
 
 # Servir arquivos estáticos
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 # Rota principal
 @app.get("/")
 def read_root():
-    return FileResponse("static/chat.html")
+    return FileResponse("app/templates/chat.html")
 
 # Gerenciador de conexões
 class ConnectionManager:

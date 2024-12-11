@@ -96,7 +96,7 @@ function addSystemMessageToChat(message) {
 
 // Função para tocar o som
 function playNotificationSound() {
-    const audio = new Audio('/static/notification.mp3');  // Caminho para o arquivo MP3
+    const audio = new Audio('/static/misc/notification.mp3');  // Caminho para o arquivo MP3
     audio.play();
 }
 

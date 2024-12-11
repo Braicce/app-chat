@@ -1,5 +1,5 @@
 from motor.motor_asyncio import AsyncIOMotorClient
-from db.database import settings
+from app.db.database import settings
 
 async def init_db():
     client = AsyncIOMotorClient(settings.mongodb_url)

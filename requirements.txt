@@ -4,4 +4,4 @@ websockets
 passlib
 pymongo
 motor
-pydantic
+pydantic-settings
