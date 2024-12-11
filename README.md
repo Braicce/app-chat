@@ -12,20 +12,28 @@ MongoDB - https://www.mongodb.com
 
 ### Estrutura de arquivos
 
-app-chat/
-├── static/
-│   ├── chat.html
-│   ├── notification.mp3
-│   ├── style.css
-│   ├── script.js
-│   ├── background.webp
-│   ├── chat-logo.png
-│   ├── favicon.ico
-├── app.py
+app/
+├── main.py
 ├── dockerfile
 ├── docker-compose.yml
 ├── README.md
 ├── requirements.txt
+├── db/
+│   ├── config.py
+│   ├── database.py
+│   ├── init_db.py
+│   ├── create_collections.py
+├── templates/
+│   ├── chat.html
+├── static/
+|         ├── js/
+|             ├── script.js
+|         ├── css/
+|             ├── style.css
+|         ├── misc/
+|             ├── notification.mp3
+|             ├── chat-logo.png
+|             ├── favicon.ico
 
 ### Módulos Necessários
 
