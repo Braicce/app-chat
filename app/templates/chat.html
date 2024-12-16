@@ -11,18 +11,22 @@
 
 <body>
     <div id="nickname-section">
-        <img src="/static/misc/chat-logo.png" id="chat-logo" alt="Logo Chat">
+        <img src="/static/misc/chat-logo.png" id="chat-logo" alt="Logo Chat" style="max-width: 100%; height: auto;">
         <h2>Bem-vindo ao Chat</h2>
-        <input type="text" id="nickname-input" placeholder="Digite seu nome">
-        <button onclick="enterChat()">Entrar</button>
+        <input type="text" id="nickname-input" placeholder="Digite seu nome"
+            style="padding: 10px; width: 100%; max-width: 300px; margin: 10px 0;">
+        <button onclick="enterChat()"
+            style="padding: 10px 20px; font-size: 16px; background-color: #4caf50; color: white; border: none; cursor: pointer; border-radius: 5px;">Entrar</button>
     </div>
+
     <div id="chat-section">
-        <div id="messages" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;"></div>
-        <div style="position: relative; display: flex; align-items: center; margin-top: 10px;">
+        <div id="messages"></div>
         <div id="input-section">
             <input id="message-input" type="text" placeholder="Digite sua mensagem">
             <button onclick="openEmojiPicker()">😀</button>
             <div id="emoji-picker" style="display: none; position: absolute; background: white; border: 1px solid #ccc; padding: 10px; max-width: 300px; max-height: 200px; overflow-y: auto; bottom: 50px;"></div>
+            <input type="file" id="photo-input" accept="image/*" style="display: none;">
+            <button id="uploadbutton" onclick="document.getElementById('photo-input').click()">📷</button>
             <button id="send-button" onclick="sendMessage()">
                 <!-- Ícone de enviar -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -33,16 +37,13 @@
             </button>
         </div>
         <div id="emoji-picker"
-            style="display: none; position: absolute; background: white; border: 1px solid #ccc; padding: 10px; max-width: 300px; max-height: 200px; overflow-y: auto;">
-        </div>
+        style="display: none; position: absolute; background: white; border: 1px solid #ccc; padding: 10px; max-width: 300px; max-height: 200px; overflow-y: auto;">
     </div>
+    </div>
+  
     <script src="/static/js/script.js"></script>
-    <!-- CSS do JoyPixels -->
-     <script src="https://cdn.jsdelivr.net/npm/emoji-toolkit@8.0.0/lib/js/joypixels.min.js"></script>
-    <!-- JS do JoyPixels -->
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-toolkit@8.0.0/extras/css/joypixels.min.css"/>
-
+    <script src="https://cdn.jsdelivr.net/npm/emoji-toolkit@8.0.0/lib/js/joypixels.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-toolkit@8.0.0/extras/css/joypixels.min.css">
 </body>
 
 </html>

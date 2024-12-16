@@ -60,7 +60,6 @@ button:hover {
     flex-direction: column;
     height: 100vh;
     background-color: #cdd7d8;
-    /*background-image: url('/static/background.webp');*/
     background-size: cover;
     padding: 10px;
 }
