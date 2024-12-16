@@ -5,3 +5,4 @@ passlib
 pymongo
 motor
 pydantic-settings
+python-multipart
